@@ -17,7 +17,7 @@ namespace Mastercard;
  *
  * @package Mastercard
  */
-class Customer extends MastercardObject
+class Customer extends ApiResource
 {
-
+    const OBJECT_NAME = 'customer';
 }

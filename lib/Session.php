@@ -15,7 +15,7 @@ use Mastercard\Util\RandomGenerator;
  * @property string $correlationId
  * @property string $merchant
  * @property string $result
- * @property SessionObject $session
+ * @property Session $session
  * @property string $successIndicator
  * @property Customer $customer
  *

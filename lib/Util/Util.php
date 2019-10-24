@@ -46,7 +46,9 @@ abstract class Util
             // business objects
             \Mastercard\Session::OBJECT_NAME => \Mastercard\Session::class,
             \Mastercard\Transaction::OBJECT_NAME => \Mastercard\Transaction::class,
-            \Mastercard\ThreeDS::RETURN_OBJECT_NAME => \Mastercard\ThreeDS::class
+            \Mastercard\ThreeDS::RETURN_OBJECT_NAME => \Mastercard\ThreeDS::class,
+            \Mastercard\Customer::OBJECT_NAME => \Mastercard\Customer::class,
+            \Mastercard\Order::OBJECT_NAME => \Mastercard\Order::class
         ];
         if (self::isList($resp)) {
             $mapped = [];

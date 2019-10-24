@@ -11,9 +11,14 @@ class Transaction extends ApiResource
 {
     const OBJECT_NAME = "transaction";
 
+    // pay operation return status
+    const STATUS_FAILURE = 'FAILURE';
+    const STATUS_PENDING = 'PENDING';
+    const STATUS_SUCCESS = 'SUCCESS';
+    const STATUS_UNKNOWN = 'UNKNOWN';
+
     use ApiOperations\update;
 
-    //TODO: add pay statuses to this class
 
     public static function pay($trans_id, $order_id, Factory $factory, $opts = null)
     {
