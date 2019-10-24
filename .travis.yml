@@ -13,3 +13,12 @@ matrix:
     allow_failures:
         - php: 7.4snapshot
         - php: 7.4snapshot
+
+cache:
+    directories:
+        - $HOME/.composer/cache/files
+
+before_install:
+    # Install various build dependencies. We use `travis_retry` because Composer
+    # will occasionally fail intermittently.
+    - travis_retry composer install
