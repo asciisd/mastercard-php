@@ -36,9 +36,9 @@ class TestCase extends FWTestCase
         $this->clientMock = $this->createMock('\Mastercard\HttpClient\ClientInterface');
 
         // Set up host and credentials for mastercard-mock
-        Mastercard::setMerchantId(PrivateTestObject::GATEWAY_MERCHANT_ID);
-        Mastercard::setApiKey(PrivateTestObject::GATEWAY_API_PASSWORD);
-        Mastercard::setApiVersion(PrivateTestObject::GATEWAY_API_VERSION);
+        Mastercard::setMerchantId(getenv('GATEWAY_MERCHANT_ID', PrivateTestObject::GATEWAY_MERCHANT_ID));
+        Mastercard::setApiKey(getenv('GATEWAY_API_PASSWORD', PrivateTestObject::GATEWAY_API_PASSWORD));
+        Mastercard::setApiVersion(getenv('GATEWAY_API_VERSION', PrivateTestObject::GATEWAY_API_VERSION));
     }
 
     protected function tearDown(): void

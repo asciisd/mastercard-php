@@ -1,6 +1,6 @@
 <phpunit bootstrap="vendor/autoload.php" colors="true">
     <testsuites>
-        <testsuite name="<Mastercard> PHP Test Suite">
+        <testsuite name="Mastercard PHP Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

@@ -40,7 +40,5 @@ class OrderTest extends TestCase
 
         $resource = Order::retrieve($order_id);
         $this->assertInstanceOf(Order::class, $resource);
-
-        print_r($resource);
     }
 }
