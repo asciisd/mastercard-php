@@ -3,6 +3,7 @@
 
 # Ignore the SimpleTest library if it is installed to /test/.
 /test/simpletest/
+/tests/PrivateTestObject.php
 
 # Ignore the /vendor/ directory for people using composer
 /vendor/

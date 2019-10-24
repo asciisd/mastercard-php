@@ -165,8 +165,6 @@ class TransactionTest extends TestCase
 
         $resource = Transaction::refund($void_trans_id, $order_id, $factory);
         $this->assertInstanceOf(Transaction::class, $resource);
-
-        print_r($resource);
     }
 
     public function testIsVerifiable()

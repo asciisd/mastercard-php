@@ -23,6 +23,7 @@ class ObjectBuilder
     protected $sourceOfFunds = [];
     protected $paymentType = [];
     protected $transaction = [];
+    protected $interaction = [];
 
     /**
      * @param $first_name
@@ -124,17 +125,28 @@ class ObjectBuilder
      * @param array $params
      * @return ObjectBuilder
      */
-    public function order($amount, $currency = null, $autoId = true, $params = []): ObjectBuilder
+    public function order($amount = null, $currency = null, $autoId = true, $params = []): ObjectBuilder
     {
         $this->order = [
-            'order' => [
-                'amount' => $amount,
-                'currency' => $currency ?? Currency::USD
-            ]
+            'order' => []
         ];
+
+        if ($amount) {
+            $this->order['order']['amount'] = $amount;
+        }
+
+        if ($currency) {
+            $this->order['order']['currency'] = $currency ?? Currency::USD;
+        }
 
         if ($autoId) {
             $this->order['order']['id'] = RandomGenerator::uuid();
+        }
+
+        if ($params) {
+            foreach ($params as $k => $v) {
+                $this->order['order'][$k] = $v;
+            }
         }
 
         return $this;
@@ -274,6 +286,21 @@ class ObjectBuilder
     }
 
     /**
+     * @param $operation
+     * @return $this
+     */
+    public function interaction($operation)
+    {
+        $this->interaction = [
+            'interaction' => [
+                'operation' => $operation
+            ]
+        ];
+
+        return $this;
+    }
+
+    /**
      * return all filled data as array with mastercard api write format
      *
      * @return array
@@ -324,6 +351,10 @@ class ObjectBuilder
 
         if (!empty($this->transaction)) {
             $all_array = array_merge($this->transaction, $all_array);
+        }
+
+        if (!empty($this->interaction)) {
+            $all_array = array_merge($this->interaction, $all_array);
         }
 
         return $all_array;

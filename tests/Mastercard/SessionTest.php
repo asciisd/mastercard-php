@@ -4,6 +4,7 @@
 namespace Mastercard;
 
 
+use Mastercard\Enums\Currency;
 use Mastercard\Util\Factory;
 
 class SessionTest extends TestCase
@@ -31,7 +32,8 @@ class SessionTest extends TestCase
             '/session'
         );
 
-        $resource = Session::createCheckout('KWD');
+        $factory = Factory::create()->order(null, Currency::KWD);
+        $resource = Session::createCheckout($factory);
 
         $this->assertInstanceOf(Session::class, $resource);
         self::assertEquals('SUCCESS', $resource->result);

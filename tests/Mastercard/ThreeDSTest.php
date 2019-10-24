@@ -5,7 +5,6 @@ namespace Mastercard\Mastercard;
 
 
 use Mastercard\Enums\Currency;
-use Mastercard\Enums\MastercardApiOperations as ApiOP;
 use Mastercard\Enums\ThreeDSPageModes as PageMode;
 use Mastercard\Session;
 use Mastercard\TestCase;
@@ -56,17 +55,12 @@ class ThreeDSTest extends TestCase
 
     public function testProcessAcsResult()
     {
-        $params = Factory::create()
-            ->apiOperation(ApiOP::PROCESS_ACS_RESULT)
-            ->processACS(self::PARES_ID)
-            ->get();
-
         $this->expectsRequest(
             'post',
             '/3DSecureId/' . self::THREE_DS_ID
         );
 
-        $resource = ThreeDS::processACS(self::THREE_DS_ID, $params);
+        $resource = ThreeDS::processACS(self::THREE_DS_ID, self::PARES_ID);
         $this->assertInstanceOf(ThreeDS::class, $resource);
     }
 }

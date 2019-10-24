@@ -28,76 +28,76 @@ class ThreeDS extends ApiResource
      */
     public static function checkEnrollment($id, Factory $factory, $opts = null)
     {
-        $params = $factory->apiOperation(ApiOP::CHECK_3DS_ENROLLMENT)->get();
+        $params = $factory
+            ->apiOperation(ApiOP::CHECK_3DS_ENROLLMENT)
+            ->get();
 
         return static::update($id, $params, $opts);
     }
 
     /**
      * @param string $id The ID of the resource to update.
-     * @param array|null $params
+     * @param null $PaRES
      * @param array|string|null $opts
      *
-     * @return array|\Mastercard\MastercardObject The updated resource.
-     * @throws Exception\ApiErrorException
+     * @return array|MastercardObject
      */
-    public static function processACS($id, $params = null, $opts = null)
+    public static function processACS($id, $PaRES, $opts = null)
     {
-        self::_validateParams($params);
-        $url = static::resourceUrl($id);
-        list($response, $opts) = static::_staticRequest('post', $url, $params, $opts);
-        $obj = \Mastercard\Util\Util::convertToMastercardObject($response->json, $opts);
-        $obj->setLastResponse($response);
-        return $obj;
+        $factory = Factory::create()
+            ->apiOperation(ApiOP::PROCESS_ACS_RESULT)
+            ->processACS($PaRES);
+
+        return self::postUpdate($id, $factory->get(), $opts);
     }
 
     public function acsUrl()
     {
-        return $this['3DSecure']['authenticationRedirect']['customized']['acsUrl'];
+        return $this['3DSecure']['authenticationRedirect']['customized']['acsUrl'] ?? '';
     }
 
     public function paReq()
     {
-        return $this['3DSecure']['authenticationRedirect']['customized']['paReq'];
+        return $this['3DSecure']['authenticationRedirect']['customized']['paReq'] ?? '';
     }
 
     public function gatewayRecommendation()
     {
-        return $this['response']['gatewayRecommendation'];
+        return $this['response']['gatewayRecommendation'] ?? '';
     }
 
     public function id()
     {
-        return $this['3DSecureId'];
+        return $this['3DSecureId'] ?? '';
     }
 
     public function merchant()
     {
-        return $this['merchant'];
+        return $this['merchant'] ?? '';
     }
 
     public function veResEnrolled()
     {
-        return $this['3DSecure']['veResEnrolled'];
+        return $this['3DSecure']['veResEnrolled'] ?? '';
     }
 
     public function xid()
     {
-        return $this['3DSecure']['xid'];
+        return $this['3DSecure']['xid'] ?? '';
     }
 
     public function authenticationToken()
     {
-        return $this['3DSecure']['authenticationToken'];
+        return $this['3DSecure']['authenticationToken'] ?? '';
     }
 
     public function paResStatus()
     {
-        return $this['3DSecure']['paResStatus'];
+        return $this['3DSecure']['paResStatus'] ?? '';
     }
 
     public function acsEci()
     {
-        return $this['3DSecure']['acsEci'];
+        return $this['3DSecure']['acsEci'] ?? '';
     }
 }

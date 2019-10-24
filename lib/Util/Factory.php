@@ -201,6 +201,19 @@ class Factory
     }
 
     /**
+     * add operation to interaction
+     *
+     * @param string $operation
+     * @return $this
+     */
+    public function interaction($operation)
+    {
+        $this->builder->interaction($operation);
+
+        return $this;
+    }
+
+    /**
      * return all params as array with correct format that accepted by mastercard api
      *
      * @return array

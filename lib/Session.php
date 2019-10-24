@@ -3,11 +3,9 @@
 
 namespace Mastercard;
 
-use Mastercard\ApiOperations\Update;
 use Mastercard\Enums\MastercardApiOperations as ApiOP;
 use Mastercard\Enums\SessionInteractionOperations as SessionOP;
 use Mastercard\Util\Factory;
-use Mastercard\Util\RandomGenerator;
 
 /**
  * Class Session
@@ -29,19 +27,11 @@ class Session extends ApiResource
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
 
-    public static function createCheckout($currency = 'USD', SessionOP $operation = null)
+    public static function createCheckout(Factory $factory = null)
     {
-        $params = [
-            'apiOperation' => ApiOP::CREATE_CHECKOUT_SESSION,
-            'interaction' => [
-                'operation' => $operation ?? SessionOP::PURCHASE
-            ],
-            'order' => [
-                'currency' => $currency,
-                'id' => RandomGenerator::uuid()
-            ]
-        ];
+        $factory->apiOperation(ApiOP::CREATE_CHECKOUT_SESSION)
+            ->interaction(SessionOP::PURCHASE);
 
-        return self::create($params);
+        return self::create($factory->get());
     }
 }
