@@ -28,9 +28,10 @@ class ObjectBuilder
      * @param $last_name
      * @param $email
      * @param null $phone
+     * @param array $params
      * @return ObjectBuilder
      */
-    public function customer($first_name, $last_name, $email, $phone = null): ObjectBuilder
+    public function customer($first_name, $last_name, $email, $phone = null, $params = []): ObjectBuilder
     {
         $this->customer = [
             'customer' => [
@@ -43,6 +44,11 @@ class ObjectBuilder
         if ($phone) {
             $this->customer['customer']['phone'] = $phone;
         }
+
+        foreach ($params as $k => $v) {
+            $this->customer['customer'][$k] = $v;
+        }
+
         return $this;
     }
 

@@ -28,12 +28,13 @@ class Factory
      * @param $first_name
      * @param $last_name
      * @param $email
+     * @param null $phone
      * @param array $params
      * @return Factory
      */
-    public function customer($first_name, $last_name, $email, $params = [])
+    public function customer($first_name, $last_name, $email, $phone = null, $params = [])
     {
-        $this->builder->customer($first_name, $last_name, $email);
+        $this->builder->customer($first_name, $last_name, $email, $phone, $params);
 
         return $this;
     }
@@ -161,6 +162,22 @@ class Factory
     public function paymentType($type = null)
     {
         $this->builder->paymentType($type);
+
+        return $this;
+    }
+
+    /**
+     * add billing information to mastercard api array
+     *
+     * @param $country
+     * @param null $city
+     * @param null $state_province
+     * @param null $street
+     * @return $this
+     */
+    public function billing($country, $city = null, $state_province = null, $street = null)
+    {
+        $this->builder->billing($country, $city, $state_province, $street);
 
         return $this;
     }
