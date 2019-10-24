@@ -102,7 +102,7 @@ class MastercardObject implements \ArrayAccess, \Countable, \JsonSerializable
         return $additiveParams;
     }
 
-    public function __construct($id = null, $opts = null)
+    public function __construct($id = null, $opts = null, $second_id = null)
     {
         list($id, $this->_retrieveOptions) = Util\Util::normalizeId($id);
         $this->_opts = Util\RequestOptions::parse($opts);
@@ -112,6 +112,10 @@ class MastercardObject implements \ArrayAccess, \Countable, \JsonSerializable
         $this->_transientValues = new Util\Set();
         if ($id !== null) {
             $this->_values['id'] = $id;
+        }
+
+        if ($second_id !== null) {
+            $this->_values['second_id'] = $second_id;
         }
     }
 

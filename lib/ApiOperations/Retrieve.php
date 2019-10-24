@@ -15,12 +15,13 @@ trait Retrieve
      *     or an options array containing an `id` key.
      * @param array|string|null $opts
      *
+     * @param null $second_id
      * @return static
      */
-    public static function retrieve($id, $opts = null)
+    public static function retrieve($id, $opts = null, $second_id = null)
     {
         $opts = \Mastercard\Util\RequestOptions::parse($opts);
-        $instance = new static($id, $opts);
+        $instance = new static($id, $opts, $second_id);
         $instance->refresh();
         return $instance;
     }

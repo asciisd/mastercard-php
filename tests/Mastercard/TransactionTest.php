@@ -80,4 +80,31 @@ class TransactionTest extends TestCase
         self::assertEquals('FAILURE', $resource->result);
     }
 
+    public function testIsRetrievable()
+    {
+        $trans_id = RandomGenerator::uuid();
+        $order_id = RandomGenerator::uuid();
+        $session = Session::create();
+        $session = Session::update($session->session->id, Factory::create()
+            ->card('5123450000000008', 'AMR EMADELDIN AHMED', '05', '21', '100')
+            ->get()
+        );
+
+        $factory = Factory::create()
+            ->apiOperation(ApiOp::PAY)
+            ->session($session->session->id)
+            ->order(100, Currency::KWD, false)
+            ->sourceOfFunds('CARD');
+
+        Transaction::pay($trans_id, $order_id, $factory);
+
+        $this->expectsRequest(
+            'get',
+            '/order/' . $order_id . '/transaction/' . $trans_id
+        );
+
+        $resource = Transaction::retrieve($order_id, null, $trans_id);
+        $this->assertInstanceOf(Transaction::class, $resource);
+    }
+
 }

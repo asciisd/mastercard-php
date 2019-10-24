@@ -88,10 +88,33 @@ abstract class ApiResource extends MastercardObject
     }
 
     /**
+     * @return string The endpoint URL for the given class.
+     */
+    public static function firstClassUrl()
+    {
+        // Replace dots with slashes for namespaced resources, e.g. if the object's name is
+        // "foo.bar", then its URL will be "/v1/foo/bars".
+        $base = str_replace('.', '/', static::FIRST_OBJECT_NAME);
+        return "/${base}";
+    }
+
+    /**
+     * @return string The endpoint URL for the given class.
+     */
+    public static function secondClassUrl()
+    {
+        // Replace dots with slashes for namespaced resources, e.g. if the object's name is
+        // "foo.bar", then its URL will be "/v1/foo/bars".
+        $base = str_replace('.', '/', static::SECOND_OBJECT_NAME);
+        return "${base}";
+    }
+
+    /**
      * @param $id
+     * @param null $second_id
      * @return string The instance endpoint URL for the given class.
      */
-    public static function resourceUrl($id)
+    public static function resourceUrl($id, $second_id = null)
     {
         if ($id === null) {
             $class = get_called_class();
@@ -99,9 +122,21 @@ abstract class ApiResource extends MastercardObject
                 . "$class instance has invalid ID: $id";
             throw new Exception\UnexpectedValueException($message);
         }
+
+        if ($second_id !== null) {
+            $id = Util\Util::utf8($id);
+            $second_id = Util\Util::utf8($second_id);
+            $first_base = static::firstClassUrl();
+            $first_extn = urlencode($id);
+            $second_base = static::secondClassUrl();
+            $second_extn = urlencode($second_id);
+            return "$first_base/$first_extn/$second_base/$second_extn";
+        }
+
         $id = Util\Util::utf8($id);
         $base = static::classUrl();
         $extn = urlencode($id);
+
         return "$base/$extn";
     }
 
@@ -132,6 +167,6 @@ abstract class ApiResource extends MastercardObject
             return static::resourceUrl($this[static::OBJECT_NAME]['id']);
         }
 
-        return static::resourceUrl($this['id']);
+        return static::resourceUrl($this['id'], $this['second_id']);
     }
 }
