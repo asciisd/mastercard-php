@@ -1,0 +1,53 @@
+{
+    "name": "asciisd/mastercard-php",
+    "type": "library",
+    "description": "Mastercard Library for php",
+    "keywords": [
+        "asciisd",
+        "mastercard-php",
+        "mastercard",
+        "php"
+    ],
+    "homepage": "https://github.com/asciisd/mastercard-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Amr Emad",
+            "email": "aemad@asciisd.com",
+            "homepage": "https://asciisd.com"
+        }
+    ],
+    "require": {
+        "php" : ">=7.1.0",
+        "ext-openssl": "*",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "^8.0",
+        "scrutinizer/ocular": "~1.6",
+        "squizlabs/php_codesniffer": "~2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mastercard\\": "lib/"
+        },
+        "classmap": [
+            "lib/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mastercard\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
