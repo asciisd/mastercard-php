@@ -22,6 +22,7 @@ class ObjectBuilder
     protected $billing = [];
     protected $sourceOfFunds = [];
     protected $paymentType = [];
+    protected $transaction = [];
 
     /**
      * @param $first_name
@@ -42,7 +43,7 @@ class ObjectBuilder
         ];
 
         if ($phone) {
-            $this->customer['customer']['phone'] = $phone;
+            $this->customer['customer']['mobilePhone'] = $phone;
         }
 
         foreach ($params as $k => $v) {
@@ -246,6 +247,33 @@ class ObjectBuilder
     }
 
     /**
+     * @param $trans_id
+     * @param $amount
+     * @param $currency
+     * @return ObjectBuilder
+     */
+    public function transaction($trans_id = null, $amount = null, $currency = null): ObjectBuilder
+    {
+        $this->transaction = [
+            'transaction' => []
+        ];
+
+        if ($trans_id) {
+            $this->transaction['transaction']['targetTransactionId'] = $trans_id;
+        }
+
+        if ($amount) {
+            $this->transaction['transaction']['amount'] = $amount;
+        }
+
+        if ($currency) {
+            $this->transaction['transaction']['currency'] = $currency;
+        }
+
+        return $this;
+    }
+
+    /**
      * return all filled data as array with mastercard api write format
      *
      * @return array
@@ -292,6 +320,10 @@ class ObjectBuilder
 
         if (!empty($this->paymentType)) {
             $all_array = array_merge($this->paymentType, $all_array);
+        }
+
+        if (!empty($this->transaction)) {
+            $all_array = array_merge($this->transaction, $all_array);
         }
 
         return $all_array;

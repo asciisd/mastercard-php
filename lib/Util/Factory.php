@@ -17,6 +17,9 @@ class Factory
         $this->builder = new ObjectBuilder();
     }
 
+    /**
+     * @return Factory
+     */
     public static function create()
     {
         return new Factory();
@@ -90,7 +93,7 @@ class Factory
      * inject 3DSecureId into mastercard api
      *
      * @param $id
-     * @return $this
+     * @return Factory
      */
     public function threeDSecureId($id)
     {
@@ -144,7 +147,7 @@ class Factory
      * add sourceOfFund item to mastercard api array
      *
      * @param string $type
-     * @return $this
+     * @return Factory
      */
     public function sourceOfFunds($type)
     {
@@ -157,7 +160,7 @@ class Factory
      * add payment type to mastercard api array
      *
      * @param $type
-     * @return $this
+     * @return Factory
      */
     public function paymentType($type = null)
     {
@@ -173,11 +176,26 @@ class Factory
      * @param null $city
      * @param null $state_province
      * @param null $street
-     * @return $this
+     * @return Factory
      */
     public function billing($country, $city = null, $state_province = null, $street = null)
     {
         $this->builder->billing($country, $city, $state_province, $street);
+
+        return $this;
+    }
+
+    /**
+     * add transaction id to mastercard api array
+     *
+     * @param $trans_id
+     * @param $amount
+     * @param $currency
+     * @return Factory
+     */
+    public function transaction($trans_id = null, $amount = null, $currency = null)
+    {
+        $this->builder->transaction($trans_id, $amount, $currency);
 
         return $this;
     }
@@ -192,7 +210,8 @@ class Factory
         return $this->builder->get();
     }
 
-    public function reset() {
+    public function reset()
+    {
         $this->builder = new ObjectBuilder();
     }
 }

@@ -21,7 +21,7 @@ class TransactionTest extends TestCase
         $order_id = RandomGenerator::uuid();
         $session = Session::create();
         $session = Session::update($session->session->id, Factory::create()
-            ->card('5123450000000008', 'AMR EMADELDIN AHMED', '05', '21', '100')
+            ->card('5123450000000008', 'AMR AHMED', '05', '21', '100')
             ->get()
         );
 
@@ -49,7 +49,7 @@ class TransactionTest extends TestCase
         $three_d_s = RandomGenerator::uuid();
         $session = Session::create();
         $session = Session::update($session->session->id, Factory::create()
-            ->card('5123450000000008', 'AMR EMADELDIN AHMED', '05', '21', '100')
+            ->card('5123450000000008', 'AMR AHMED', '05', '21', '100')
             ->get()
         );
 
@@ -86,7 +86,7 @@ class TransactionTest extends TestCase
         $order_id = RandomGenerator::uuid();
         $session = Session::create();
         $session = Session::update($session->session->id, Factory::create()
-            ->card('5123450000000008', 'AMR EMADELDIN AHMED', '05', '21', '100')
+            ->card('5123450000000008', 'AMR AHMED', '05', '21', '100')
             ->get()
         );
 
@@ -104,6 +104,93 @@ class TransactionTest extends TestCase
         );
 
         $resource = Transaction::retrieve($order_id, null, $trans_id);
+        $this->assertInstanceOf(Transaction::class, $resource);
+    }
+
+    public function testIsAvoidable()
+    {
+        $trans_id = RandomGenerator::uuid();
+        $void_trans_id = RandomGenerator::uuid();
+        $order_id = RandomGenerator::uuid();
+        $session = Session::create();
+        $session = Session::update($session->session->id, Factory::create()
+            ->card('5123450000000008', 'AMR AHMED', '05', '21', '100')
+            ->get()
+        );
+
+        $factory = Factory::create()
+            ->apiOperation(ApiOp::PAY)
+            ->session($session->session->id)
+            ->order(100, Currency::KWD, false)
+            ->sourceOfFunds('CARD');
+
+        Transaction::pay($trans_id, $order_id, $factory);
+
+        $this->expectsRequest(
+            'put',
+            '/order/' . $order_id . '/transaction/' . $void_trans_id
+        );
+
+        $factory = Factory::create()->transaction($trans_id);
+
+        $resource = Transaction::void($void_trans_id, $order_id, $factory);
+        $this->assertInstanceOf(Transaction::class, $resource);
+    }
+
+    public function testIsRefundable()
+    {
+        $trans_id = RandomGenerator::uuid();
+        $void_trans_id = RandomGenerator::uuid();
+        $order_id = RandomGenerator::uuid();
+        $session = Session::create();
+        $session = Session::update($session->session->id, Factory::create()
+            ->card('5123450000000008', 'AMR AHMED', '05', '21', '100')
+            ->get()
+        );
+
+        $factory = Factory::create()
+            ->apiOperation(ApiOp::PAY)
+            ->session($session->session->id)
+            ->order(100, Currency::KWD, false)
+            ->sourceOfFunds('CARD');
+
+        Transaction::pay($trans_id, $order_id, $factory);
+
+        $this->expectsRequest(
+            'put',
+            '/order/' . $order_id . '/transaction/' . $void_trans_id
+        );
+
+        $factory = Factory::create()->transaction(null, 50, Currency::KWD);
+
+        $resource = Transaction::refund($void_trans_id, $order_id, $factory);
+        $this->assertInstanceOf(Transaction::class, $resource);
+
+        print_r($resource);
+    }
+
+    public function testIsVerifiable()
+    {
+        $trans_id = RandomGenerator::uuid();
+        $order_id = RandomGenerator::uuid();
+        $session = Session::create();
+        $session = Session::update($session->session->id, Factory::create()
+            ->card('5123450000000008', 'AMR AHMED', '05', '21', '100')
+            ->get()
+        );
+
+        $factory = Factory::create()
+            ->apiOperation(ApiOp::PAY)
+            ->session($session->session->id)
+            ->order(100, Currency::KWD, false)
+            ->sourceOfFunds('CARD');
+
+        $this->expectsRequest(
+            'put',
+            '/order/' . $order_id . '/transaction/' . $trans_id
+        );
+
+        $resource = Transaction::verify($trans_id, $order_id, $factory);
         $this->assertInstanceOf(Transaction::class, $resource);
     }
 

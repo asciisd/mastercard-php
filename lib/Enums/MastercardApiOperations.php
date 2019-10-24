@@ -15,4 +15,7 @@ abstract class MastercardApiOperations
 
     // Transactions
     const PAY = 'PAY';
+    const VOID = 'VOID';
+    const REFUND = 'REFUND';
+    const VERIFY = 'VERIFY';
 }

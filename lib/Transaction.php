@@ -28,4 +28,22 @@ class Transaction extends ApiResource
         $params = $factory->apiOperation(ApiOp::PAY)->get();
         return static::update($order_id, $params, $opts, $trans_id);
     }
+
+    public static function void($trans_id, $order_id, Factory $factory, $opts = null)
+    {
+        $params = $factory->apiOperation(ApiOp::VOID)->get();
+        return static::update($order_id, $params, $opts, $trans_id);
+    }
+
+    public static function refund($trans_id, $order_id, Factory $factory, $opts = null)
+    {
+        $params = $factory->apiOperation(ApiOp::REFUND)->get();
+        return static::update($order_id, $params, $opts, $trans_id);
+    }
+
+    public static function verify($trans_id, $order_id, Factory $factory, $opts = null)
+    {
+        $params = $factory->apiOperation(ApiOp::VERIFY)->get();
+        return static::update($order_id, $params, $opts, $trans_id);
+    }
 }

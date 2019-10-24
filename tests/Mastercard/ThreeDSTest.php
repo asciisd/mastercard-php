@@ -36,7 +36,7 @@ class ThreeDSTest extends TestCase
             Factory::create()
                 ->order(10, Currency::KWD, false)
                 ->customer('Amr', 'Ahmed', 'aemaddin@gmail.com')
-                ->card('5123450000000008', 'AMR EMADELDIN AHMED', '05', '21')
+                ->card('5123450000000008', 'AMR AHMED', '05', '21')
                 ->get()
         );
 
