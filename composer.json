@@ -29,6 +29,11 @@
         "scrutinizer/ocular": "~1.6",
         "squizlabs/php_codesniffer": "~2.3"
     },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
             "Mastercard\\": "lib/"
@@ -45,9 +50,6 @@
     "scripts": {
         "test": "phpunit"
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
-    }
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
