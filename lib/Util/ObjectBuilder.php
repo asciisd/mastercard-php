@@ -322,7 +322,12 @@ class ObjectBuilder
         }
 
         if (!empty($this->card) || !empty($this->sourceOfFunds)) {
-            $all_array = array_merge($this->card, $this->sourceOfFunds, $all_array);
+            if (!empty($this->card) && !empty($this->sourceOfFunds)) {
+                $this->card['sourceOfFunds']['type'] = $this->sourceOfFunds['sourceOfFunds']['type'];
+                $all_array = array_merge($this->card, $all_array);
+            } else {
+                $all_array = array_merge($this->card, $this->sourceOfFunds, $all_array);
+            }
         }
 
         if (!empty($this->threeDS)) {

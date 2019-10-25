@@ -23,24 +23,52 @@ class Transaction extends ApiResource
     use ApiOperations\Retrieve;
 
 
+    /**
+     * @param $trans_id
+     * @param $order_id
+     * @param Factory $factory
+     * @param null $opts
+     * @return array|Transaction
+     */
     public static function pay($trans_id, $order_id, Factory $factory, $opts = null)
     {
         $params = $factory->apiOperation(ApiOp::PAY)->get();
         return static::update($order_id, $params, $opts, $trans_id);
     }
 
+    /**
+     * @param $trans_id
+     * @param $order_id
+     * @param Factory $factory
+     * @param null $opts
+     * @return array|Transaction
+     */
     public static function void($trans_id, $order_id, Factory $factory, $opts = null)
     {
         $params = $factory->apiOperation(ApiOp::VOID)->get();
         return static::update($order_id, $params, $opts, $trans_id);
     }
 
+    /**
+     * @param $trans_id
+     * @param $order_id
+     * @param Factory $factory
+     * @param null $opts
+     * @return array|Transaction
+     */
     public static function refund($trans_id, $order_id, Factory $factory, $opts = null)
     {
         $params = $factory->apiOperation(ApiOp::REFUND)->get();
         return static::update($order_id, $params, $opts, $trans_id);
     }
 
+    /**
+     * @param $trans_id
+     * @param $order_id
+     * @param Factory $factory
+     * @param null $opts
+     * @return array|Transaction
+     */
     public static function verify($trans_id, $order_id, Factory $factory, $opts = null)
     {
         $params = $factory->apiOperation(ApiOp::VERIFY)->get();

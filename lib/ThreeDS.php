@@ -5,6 +5,7 @@ namespace Mastercard;
 
 use Mastercard\Enums\MastercardApiOperations as ApiOp;
 use Mastercard\Util\Factory;
+use phpDocumentor\Reflection\Types\This;
 
 /**
  * Class ThreeDS
@@ -15,6 +16,9 @@ class ThreeDS extends ApiResource
 {
     const OBJECT_NAME = "3DSecureId";
     const RETURN_OBJECT_NAME = "3DSecure";
+
+    const STATUS_DO_NOT_PROCEED = 'DO_NOT_PROCEED';
+    const STATUS_PROCEED = 'PROCEED';
 
     use ApiOperations\Retrieve;
     use ApiOperations\Update;
@@ -99,5 +103,10 @@ class ThreeDS extends ApiResource
     public function acsEci()
     {
         return $this['3DSecure']['acsEci'] ?? '';
+    }
+
+    public function needToProceed()
+    {
+        return (bool) $this->gatewayRecommendation() == self::STATUS_PROCEED;
     }
 }
