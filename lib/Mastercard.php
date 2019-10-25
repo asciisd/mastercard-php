@@ -11,7 +11,7 @@ class Mastercard
     const REGION_NORTH_AMERICA = 'NORTH_AMERICA';
     const REGION_MTF = 'MTF';
     const REGION_QA01 = 'QA01';
-    const VERSION = '1.0.2';
+    const VERSION = '1.0.4';
 
 
     // @var string the api password to be used for requests.

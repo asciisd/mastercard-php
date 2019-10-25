@@ -48,7 +48,10 @@ abstract class Util
             \Mastercard\Transaction::OBJECT_NAME => \Mastercard\Transaction::class,
             \Mastercard\ThreeDS::RETURN_OBJECT_NAME => \Mastercard\ThreeDS::class,
             \Mastercard\Customer::OBJECT_NAME => \Mastercard\Customer::class,
-            \Mastercard\Order::OBJECT_NAME => \Mastercard\Order::class
+            \Mastercard\Order::OBJECT_NAME => \Mastercard\Order::class,
+            \Mastercard\SourceOfFunds::OBJECT_NAME => \Mastercard\SourceOfFunds::class,
+            \Mastercard\SourceOfFundsProvided::OBJECT_NAME => \Mastercard\SourceOfFundsProvided::class,
+            \Mastercard\Card::OBJECT_NAME => \Mastercard\Card::class,
         ];
         if (self::isList($resp)) {
             $mapped = [];
