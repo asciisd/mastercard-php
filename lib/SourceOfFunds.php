@@ -6,7 +6,7 @@ namespace Mastercard;
 /**
  * Class sourceOfFunds
  *
- * @property MastercardObject $provided
+ * @property SourceOfFundsProvided $provided
  * @property string $token
  * @property string $tokenRequestorID
  * @property string $type

@@ -15,6 +15,7 @@ use Mastercard\Util\Factory;
  * @property string $result
  * @property Session $session
  * @property string $successIndicator
+ * @property SourceOfFunds $sourceOfFunds
  * @property Customer $customer
  *
  * @package Mastercard
